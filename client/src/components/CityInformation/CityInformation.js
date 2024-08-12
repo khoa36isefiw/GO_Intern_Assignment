@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import cr from '../../assets/images/cloudy_rainy.png';
 import { useSelector } from 'react-redux';
+import { mobileScreen } from '../Theme/Theme';
 export const TextCityInformation = ({ text, numInfor }) => {
     // check unit for Temperature, Wind, Humidity
     const getUnit = (text) => {
@@ -53,6 +54,7 @@ function CityInformation() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                [mobileScreen]: {},
             }}
         >
             {/* information */}

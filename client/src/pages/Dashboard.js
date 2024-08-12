@@ -5,7 +5,7 @@ import CityInformation from '../components/CityInformation/CityInformation';
 import ForecastCardInformation from '../components/ForecastCardInformation/ForecastCardInformation';
 import GetCurrentLocation from '../utils/GetCurrentLocation';
 import getCityFromCoordinates from '../utils/GetCityName';
-import { mobileScreen } from '../components/Theme/Theme';
+import { ipadProScreen, mobileScreen, tabletScreen } from '../components/Theme/Theme';
 
 function Dashboard() {
     const [currentCityName, setCurrentCityName] = useState(null);
@@ -69,6 +69,9 @@ function Dashboard() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     zIndex: 99,
+                    [mobileScreen]: {
+                        height: '60px',
+                    },
                 }}
             >
                 <Typography
@@ -77,17 +80,35 @@ function Dashboard() {
                         textAlign: 'center',
                         color: 'white',
                         fontWeight: 'bold',
+                        [mobileScreen]: {
+                            fontSize: '24px',
+                        },
                     }}
                 >
                     Weather Dashboard
                 </Typography>
             </Box>
 
-            <Grid container spacing={8} sx={{ padding: 16, [mobileScreen]: { padding: 0 } }}>
-                <Grid item xs={4}>
+            <Grid
+                container
+                spacing={8}
+                sx={{
+                    padding: 16,
+                    [mobileScreen]: { padding: 1, mt: 1 },
+                    [ipadProScreen]: {
+                        padding: 2,
+                        mt: 3,
+                    },
+                    [tabletScreen]: {
+                        padding: 2,
+                        mt: 4,
+                    },
+                }}
+            >
+                <Grid item xs={12} sm={4} md={4} lg={4}>
                     <SearchLocation />
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} sm={8} md={8} lg={8}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <CityInformation />

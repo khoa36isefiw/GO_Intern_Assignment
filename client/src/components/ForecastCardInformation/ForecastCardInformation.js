@@ -1,4 +1,4 @@
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { TextCityInformation, WeatherImage } from '../CityInformation/CityInformation';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
@@ -28,39 +28,33 @@ function ForecastCardInformation() {
     return (
         <Box sx={{ mt: 1 }}>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>4 - Day Forecast</Typography>
-            <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                }}
-            >
+            <Grid container spacing={2} sx={{ mt: 1 }}>
                 {fourDaysWeather.slice(0, visibleCards).map((infor, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            bgcolor: '#6c757d',
-                            borderRadius: '8px',
-                            minHeight: '100px',
-                            p: '12px',
-                            mt: 1,
-                            width: '150px',
-                            mx: '4px',
-                        }}
-                    >
-                        <Typography
-                            sx={{ fontWeight: 'bold', color: 'white', mb: 1, fontSize: '16px' }}
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                        <Box
+                            sx={{
+                                bgcolor: '#6c757d',
+                                borderRadius: '8px',
+                                minHeight: '100px',
+                                p: '12px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                color: 'white',
+                            }}
                         >
-                            {infor.date}
-                        </Typography>
-                        <WeatherImage imgSize={48} imgSrc={infor.weatherImg} />
-                        <TextCityInformation text={'Temp'} numInfor={infor.temp} />
-                        <TextCityInformation text={'Wind'} numInfor={infor.wind} />
-                        <TextCityInformation text={'Humidity'} numInfor={infor.humid} />
-                    </Box>
+                            <Typography sx={{ fontWeight: 'bold', mb: 1, fontSize: '16px' }}>
+                                {infor.date}
+                            </Typography>
+                            <WeatherImage imgSize={48} imgSrc={infor.weatherImg} />
+                            <TextCityInformation text={'Temp'} numInfor={infor.temp} />
+                            <TextCityInformation text={'Wind'} numInfor={infor.wind} />
+                            <TextCityInformation text={'Humidity'} numInfor={infor.humid} />
+                        </Box>
+                    </Grid>
                 ))}
-            </Box>
+            </Grid>
             {visibleCards < fourDaysWeather.length && (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
                     <Button
