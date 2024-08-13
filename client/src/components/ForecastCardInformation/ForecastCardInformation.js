@@ -1,11 +1,13 @@
 import { Typography, Box, Button, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextCityInformation, WeatherImage } from '../CityInformation/CityInformation';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import cloudyimage from '../../assets/images/cloudy.png';
 import storm from '../../assets/images/storm.png';
 import sun from '../../assets/images/sun.png';
 import cloudy_cloudy from '../../assets/images/cloudy_cloudy.png';
+import { useSelector } from 'react-redux';
+import weatherServices from '../../services/WeatherServices';
 
 const fourDaysWeather = [
     { date: '2023-06-20', weatherImg: cloudyimage, temp: '17.64', wind: '0.73', humid: '70' },
@@ -20,6 +22,23 @@ const fourDaysWeather = [
 
 function ForecastCardInformation() {
     const [visibleCards, setVisibleCards] = useState(4);
+    const [listWeathers, setListWeathers] = useState([]);
+    const locationSearched = useSelector((state) => state.manageWeatherData.searchData);
+    console.log('locationSearched: ', locationSearched && locationSearched.location.name);
+    console.log('before: ', listWeathers);
+    useEffect(() => {
+        locationSearched &&
+            weatherServices
+                .getNextDayForecast(locationSearched.location.name, 9)
+                .then((data) => {
+                    setListWeathers(data?.forecast?.forecastday);
+                    console.log('data: ', data);
+                })
+
+                .catch((error) => console.log(error));
+    }, [locationSearched]);
+
+    console.log('after: ', listWeathers);
 
     const handleLoadMore = () => {
         setVisibleCards((prev) => prev + 4);
