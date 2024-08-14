@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import cr from '../../assets/images/cloudy_rainy.png';
+import cr from '../../assets/images/cloudy.png';
 import { useSelector } from 'react-redux';
 import { mobileScreen } from '../Theme/Theme';
 export const TextCityInformation = ({ text, numInfor }) => {
@@ -39,10 +39,9 @@ export const WeatherImage = ({ imgSrc, imgSize }) => {
 
 function CityInformation() {
     const getCityWeather = useSelector((state) => state.manageWeatherData.searchData);
-    // console.log('data get from redux: ', getCityWeather && getCityWeather);
-    // handle for localtime: '2024-08-12 19:08' --> convert to 2024-08-12
-    const localtime = getCityWeather && getCityWeather?.location.localtime;
-    const date = localtime ? localtime.split(' ')[0] : '';
+
+    // Extract the date from the new API data structure
+    const date = getCityWeather ? getCityWeather.days[0].datetime : '';
 
     return (
         <Box
@@ -62,34 +61,37 @@ function CityInformation() {
                 {/* city name - cdatetime*/}
                 <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#fff' }}>
                     {getCityWeather
-                        ? `${getCityWeather.location.name} ${date}`
+                        ? `${getCityWeather.resolvedAddress} (${date})`
                         : `London (2023-06-19)`}
                 </Typography>
                 {/* weather information of this city */}
                 <TextCityInformation
                     text={'Temperature'}
-                    numInfor={getCityWeather ? getCityWeather.current.temp_c : '17.71'}
+                    numInfor={getCityWeather ? getCityWeather.currentConditions.temp : '17.71'}
                 />
                 <TextCityInformation
                     text={'Wind'}
-                    numInfor={getCityWeather ? getCityWeather.current.wind_mph : '5.4'}
+                    numInfor={getCityWeather ? getCityWeather.currentConditions.windspeed : '5.4'}
                 />
-
                 <TextCityInformation
                     text={'Humidity'}
-                    numInfor={getCityWeather ? getCityWeather.current.humidity : '54'}
+                    numInfor={getCityWeather ? getCityWeather.currentConditions.humidity : '54'}
                 />
             </Box>
             {/* image for showing weather*/}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <WeatherImage
-                    imgSrc={getCityWeather ? getCityWeather.current.condition.icon : cr}
+                    imgSrc={
+                        getCityWeather
+                            ? require(`../../assets/images/${getCityWeather.currentConditions.icon}.png`)
+                            : cr
+                    }
                     imgSize={56}
                 />
                 {/* <Box component="img" src={cr} sx={{ height: '56px', width: '56px' }} /> */}
                 {/* type of weather */}
                 <Typography sx={{ color: '#fff', fontWeight: 'bold' }}>
-                    {getCityWeather ? getCityWeather.current.condition.text : 'Moderate rain'}
+                    {getCityWeather ? getCityWeather.currentConditions.conditions : 'Moderate rain'}
                 </Typography>
             </Box>
         </Box>
