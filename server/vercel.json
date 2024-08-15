@@ -12,7 +12,7 @@
             "dest": "/"
         }
     ],
-    "crons": [
+    "cron": [
         {
             "path": "./api/scheduledTasks.js",
             "schedule": "*/1 * * * * *"
