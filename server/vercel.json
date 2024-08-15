@@ -14,7 +14,7 @@
     ],
     "cron": [
         {
-            "path": "./api/scheduledTasks.js",
+            "src": "./api/scheduledTasks.js",
             "schedule": "*/1 * * * * *"
         }
     ]
