@@ -14,7 +14,7 @@
     ],
     "crons": [
         {
-            "path": "/api/scheduledTasks",
+            "path": "./api/scheduledTasks.js",
             "schedule": "*/1 * * * * *"
         }
     ]
