@@ -15,7 +15,7 @@
     "cron": [
         {
             "src": "./api/scheduledTasks.js",
-            "schedule": "*/1 * * * * *"
+            "schedule": "*/2  * * * *"
         }
     ]
 }
