@@ -28,8 +28,10 @@ app.use(
 // app.use(cors());
 
 // Schedule to send after 2 mins
-cron.schedule('*/2 * * * * ', () => {
+cron.schedule('*/2 * * * * * ', () => {
     // */2 * * * *  send after 2mins
+
+    // */2 * * * * *: after 2s
     WeatherController.sendDailyWeatherUpdates();
 });
 
