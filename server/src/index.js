@@ -15,7 +15,12 @@ const WeatherController = require('./controllers/WeatherController');
 app.use(
     cors({
         // chỉ http://localhost:3001 này mới truy xuất vào server
-        origin: 'https://go-intern-assignment-ui.vercel.app',
+        origin: [
+            'http://localhost:3000',
+            'https://go-intern-assignment-ui.vercel.app',
+            'https://go-intern-assignment-api.vercel.app/api/v1/weathers/subscribe',
+            'https://go-intern-assignment-api.vercel.app/api/v1/weathers/unsubscribe',
+        ],
         // origin: ['http://localhost:3000', 'http://localhost:3001'],
         methods: 'GET,POST,PUT,PATCH,DELETE', // Cho phép các phương thức GET và POST
         allowedHeaders: 'Content-Type,Authorization', // Cho phép các tiêu đề yêu cầu cụ thể
