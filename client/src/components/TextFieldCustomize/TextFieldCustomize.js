@@ -1,17 +1,18 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 
-export const TextFieldCustomize = ({ inputValue, onChangeValue }) => {
+export const TextFieldCustomize = ({ inputValue, onChangeValue, placeholder, onHandleKeyDown }) => {
     return (
         <TextField
             variant="outlined"
             fullWidth
-            placeholder="Example: New York, Tokyo, Soul"
+            placeholder={placeholder}
             // value={cityName}
             value={inputValue}
             // value current value in text field
             // onChange={(e) => setCityName(e.target.value)}
             onChange={onChangeValue}
+            onKeyDown={onHandleKeyDown}
             sx={{
                 '.MuiInputBase-root': {
                     fontSize: '14px',

@@ -7,9 +7,8 @@ import rain from '../../assets/images/rain.png';
 import clear_day from '../../assets/images/clear-day.png';
 import partly_cloudy_night from '../../assets/images/partly-cloudy-night.png';
 import { useSelector } from 'react-redux';
-import weatherServices from '../../services/WeatherServices';
 
-// Default values if no data is searched
+// default values if no data is searched
 const defaultWeatherData = [
     { date: '2023-06-20', weatherImg: cloudyimage, temp: '17.64', wind: '0.73', humid: '70' },
     { date: '2023-06-21', weatherImg: rain, temp: '16.64', wind: '1.49', humid: '83' },
@@ -40,23 +39,29 @@ function ForecastCardInformation() {
 
     useEffect(() => {
         if (locationSearched) {
-            const weatherDays = locationSearched.days.slice(1, 10); // Get the next 9 days
+            // get the next 8 days
+            const weatherDays = locationSearched.days.slice(1, 9);
             const weatherList = weatherDays.map((day) => ({
                 date: day.datetime,
                 temp: day.temp,
                 wind: day.windspeed,
                 humid: day.humidity,
 
-                weatherImg: require(`../../assets/images/${day.icon}.png`), // Assuming this is the correct path for the weather icon
+                weatherImg: require(`../../assets/images/${day.icon}.png`),
             }));
             setListWeathers(weatherList);
         } else {
-            setListWeathers(defaultWeatherData); // Use default values if no search data
+            // use default values if no search data
+            setListWeathers(defaultWeatherData);
         }
     }, [locationSearched]);
 
     const handleLoadMore = () => {
         setVisibleCards((prev) => prev + 4);
+    };
+
+    const hanldeShowLess = () => {
+        setVisibleCards((prev) => prev - 4);
     };
 
     return (
@@ -90,7 +95,7 @@ function ForecastCardInformation() {
                     </Grid>
                 ))}
             </Grid>
-            {visibleCards < listWeathers.length && (
+            {visibleCards < listWeathers.length ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
                     <Button
                         endIcon={<KeyboardDoubleArrowRightIcon />}
@@ -98,6 +103,16 @@ function ForecastCardInformation() {
                         onClick={handleLoadMore}
                     >
                         Load More
+                    </Button>
+                </Box>
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+                    <Button
+                        endIcon={<KeyboardDoubleArrowRightIcon />}
+                        sx={{ fontWeight: 'bold', textTransform: 'capitalize', fontSize: '16px' }}
+                        onClick={hanldeShowLess}
+                    >
+                        Show Less
                     </Button>
                 </Box>
             )}

@@ -41,7 +41,10 @@ function CityInformation() {
     const getCityWeather = useSelector((state) => state.manageWeatherData.searchData);
 
     // Extract the date from the new API data structure
-    const date = getCityWeather ? getCityWeather.days[0].datetime : '';
+    const date =
+        getCityWeather && getCityWeather.days && getCityWeather.days.length > 0
+            ? getCityWeather.days[0].datetime
+            : '';
 
     return (
         <Box

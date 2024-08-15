@@ -25,12 +25,13 @@ const WeatherController = require('./controllers/WeatherController');
 
 app.use(cors());
 
-// // Schedule daily at 8 AM
+// Schedule to send after 2 seconds
 cron.schedule('*/2 * * * * ', () => {
     // */2 * * * *  send after 2mins
     WeatherController.sendDailyWeatherUpdates();
 });
 
+// connect to mongodb
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

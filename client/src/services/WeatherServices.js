@@ -1,15 +1,23 @@
 const API_URL = 'http://localhost:3001/api/v1/weathers';
 
-// REACT_APP_BASE_URL = 'https://api.weatherapi.com/';
-//  REACT_APP_API_URL = "http://localhost:3001/api/v1"
-
-// `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`,
-
 const weatherServices = {
-    getNextDayForecast: async (location, days) => {
-        const normLocation = location.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    getCurrentWeather: async (location) => {
+        // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/[location]/[date1]/[date2]?key=YOUR_API_KEY
         try {
-            const response = await fetch(API_URL + `/next-day?q=${normLocation}&days=${days}`);
+            const response = await fetch(`${API_URL}/current?q=${location}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+            return null; // You can return null or an appropriate fallback value here
+        }
+    },
+    getNextDayForecast: async (location) => {
+        try {
+            const response = await fetch(API_URL + `/next-day?q=${location}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -67,6 +75,40 @@ const weatherServices = {
             return data;
         } catch (error) {
             console.log(error);
+        }
+    },
+
+    saveWeatherData: async ({ cityName, weatherData }) => {
+        try {
+            const response = await fetch(`${API_URL}/save-weather-data`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cityName, weatherData }),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error saving weather data:', error);
+            throw error;
+        }
+    },
+
+    getWeatherData: async (cityName) => {
+        try {
+            const response = await fetch(`${API_URL}/getWeatherData/${cityName}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error retrieving weather data:', error);
+            throw error;
         }
     },
 };

@@ -8,52 +8,10 @@ import getCityFromCoordinates from '../utils/GetCityName';
 import { ipadProScreen, mobileScreen, tabletScreen } from '../components/Theme/Theme';
 
 function Dashboard() {
-    const [currentCityName, setCurrentCityName] = useState(null);
-    const [currentWeather, setCurrentWeather] = useState(null);
-
-    console.log('currentWeather: ', currentWeather);
-
-    useEffect(() => {
-        GetCurrentLocation()
-            .then(async (currentPosition) => {
-                // get name city from coordinates because the
-                // coordinates of weatherapi difference with gg map so the weather not correct.
-                const cityName = await getCityFromCoordinates(
-                    currentPosition.lat,
-                    currentPosition.lon,
-                );
-                setCurrentCityName(cityName);
-                // weatherServices
-                //     .getCurrentWeather(cityName)
-                //     .then((data) => setCurrentWeather(data))
-                //     .catch((error) => {
-                //         console.log('Error occurred while retrieving location:', error);
-                //     });
-            })
-            .catch((error) => {
-                console.log('Error occurred while retrieving location:', error);
-            });
-    }, []);
-
-    // useEffect(() => {
-    //     currentCityName &&
-    //         weatherServices
-    //             .getCurrentWeather(currentCityName)
-    //             .then((data) => {
-    //                 if (!data.error) setCurrentWeather(data);
-    //             })
-    //             .catch((error) => {
-    //                 console.log('Error occurred while retrieving location:', error);
-    //             });
-    // }, [currentCityName]);
-
     return (
         <Box
             sx={{
-                // backgroundImage: `url(${background})`,
                 minHeight: '150vh',
-                // backgroundSize: 'cover', // Đảm bảo ảnh nền phủ toàn bộ màn hình
-                // backgroundPosition: 'center',
                 bgcolor: '#e3f2fd',
             }}
         >

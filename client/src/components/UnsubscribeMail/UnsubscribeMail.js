@@ -3,7 +3,7 @@ import axios from 'axios';
 import weatherServices from '../../services/WeatherServices';
 import { TextFieldCustomize } from '../TextFieldCustomize/TextFieldCustomize';
 import { CustomButton } from '../CustomButton/CustomButton';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 function UnsubscribeMail() {
     const [email, setEmail] = useState('');
@@ -11,10 +11,6 @@ function UnsubscribeMail() {
 
     const handleUnsubscribe = async () => {
         try {
-            // const response = await axios.post('http://localhost:3001/api/v1/weathers/unsubscribe', {
-            //     email,
-            // });
-
             setMessage('');
             const response = await weatherServices.unsubscribeMail(email);
             setMessage(response.message);
@@ -24,27 +20,34 @@ function UnsubscribeMail() {
     };
 
     return (
-        <div>
+        <Box>
             <h3>Unsubscribe from Weather News</h3>
-            {/* initial */}
-            {/* <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-            />
-            <button onClick={handleUnsubscribe}>Unsubscribe</button> */}
-
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid container>
+                <Grid item xs={12} md={9} lg={9}>
+                    <TextFieldCustomize
+                        inputValue={email}
+                        onChangeValue={(e) => setEmail(e.target.value)}
+                        placeholder={'Enter your email address...'}
+                    />
+                </Grid>
+                <Grid item xs={12} md={3} lg={3}>
+                    <CustomButton
+                        empty={email !== '' ? false : true}
+                        textAction={'Unsub'}
+                        onHandleClick={handleUnsubscribe}
+                    />
+                </Grid>
+            </Grid>
+            {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <TextFieldCustomize
                     inputValue={email}
                     onChangeValue={(e) => setEmail(e.target.value)}
                 />
                 <CustomButton textAction={'Unsub'} onHandleClick={handleUnsubscribe} />
-            </Box>
+            </Box> */}
 
             <p>{message}</p>
-        </div>
+        </Box>
     );
 }
 
