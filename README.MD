@@ -1,6 +1,6 @@
 ### Introduction
 
-I'm Huynh Dang Khoa, currently working on a test assignment for an internship position at Golden Owl Solutions. The topic of this assignment is centered around weather.
+I am Huynh Dang Khoa, and I am currently working on a mock assignment for a full-stack JavaScript internship at Golden Owl Solutions. The topic of this assignment revolves around weather forecasting.
 
 ### How to run
 
