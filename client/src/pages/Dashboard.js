@@ -3,8 +3,6 @@ import { Box, Grid, Typography } from '@mui/material';
 import SearchLocation from '../components/SearchLocation/SearchLocation';
 import CityInformation from '../components/CityInformation/CityInformation';
 import ForecastCardInformation from '../components/ForecastCardInformation/ForecastCardInformation';
-import GetCurrentLocation from '../utils/GetCurrentLocation';
-import getCityFromCoordinates from '../utils/GetCityName';
 import { ipadProScreen, mobileScreen, tabletScreen } from '../components/Theme/Theme';
 
 function Dashboard() {
