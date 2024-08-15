@@ -14,7 +14,7 @@ I am Huynh Dang Khoa, and I am currently working on a mock assignment for a full
 
 1. Open the terminal: cd ./server
 2. Install package: npm install
-3. Start client: npm start
+3. Start server: npm start
 
 #### For Deploy:
 
