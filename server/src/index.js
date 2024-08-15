@@ -25,7 +25,7 @@ app.use(
     }),
 );
 
-app.use(cors());
+// app.use(cors());
 
 // Schedule to send after 2 seconds
 cron.schedule('*/2 * * * * ', () => {
