@@ -1,4 +1,4 @@
-const API_URL = 'http://go-intern-assignment-api.vercel.app/api/v1/weathers';
+const API_URL = 'https://go-intern-assignment-api.vercel.app/api/v1/weathers';
 
 const weatherServices = {
     getCurrentWeather: async (location) => {
