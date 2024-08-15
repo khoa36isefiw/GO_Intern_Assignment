@@ -12,18 +12,18 @@ app.use(express.json());
 const cron = require('node-cron');
 const WeatherController = require('./controllers/WeatherController');
 
-app.use(
-    cors({
-        // chỉ http://localhost:3001 này mới truy xuất vào server
-        origin: ['http://localhost:3000', 'https://go-intern-assignment-ui.vercel.app'], // tất cả có thể truy xuất vào server
-        // origin: ['http://localhost:3000', 'http://localhost:3001'],
-        methods: 'GET,POST,PUT,PATCH,DELETE', // Cho phép các phương thức GET và POST
-        allowedHeaders: 'Content-Type,Authorization', // Cho phép các tiêu đề yêu cầu cụ thể
-        credentials: true, // Cho phép truy cập với thông tin chứng thực
-    }),
-);
+// app.use(
+//     cors({
+//         // chỉ http://localhost:3001 này mới truy xuất vào server
+//         origin: ['http://localhost:3000', 'https://go-intern-assignment-ui.vercel.app'], // tất cả có thể truy xuất vào server
+//         // origin: ['http://localhost:3000', 'http://localhost:3001'],
+//         methods: 'GET,POST,PUT,PATCH,DELETE', // Cho phép các phương thức GET và POST
+//         allowedHeaders: 'Content-Type,Authorization', // Cho phép các tiêu đề yêu cầu cụ thể
+//         credentials: true, // Cho phép truy cập với thông tin chứng thực
+//     }),
+// );
 
-// app.use(cors());
+app.use(cors());
 
 // Schedule to send after 2 seconds
 cron.schedule('*/2 * * * * ', () => {
